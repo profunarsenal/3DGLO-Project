@@ -20,9 +20,9 @@ const timer = (deadline) => {
   const updateClock = () => {
     let getTime = getRemaining();
 
-    timerDays.textContent = getTime.days < 10 ? `0${getTime.days}` : getTime.days;
-    timerHours.textContent = getTime.hours < 10 ? `0${getTime.hours}` : getTime.hours;
-    timerMinutes.textContent = getTime.minutes < 10 ? `0${getTime.minutes}` : getTime.minutes;
+    timerDays.textContent = getTime.days < 10 ? `0${getTime.days} :` : `${getTime.days} :`;
+    timerHours.textContent = getTime.hours < 10 ? `0${getTime.hours} :` : `${getTime.hours} :`;
+    timerMinutes.textContent = getTime.minutes < 10 ? `0${getTime.minutes} :` : `${getTime.minutes} :`;
     timerSeconds.textContent = getTime.seconds < 10 ? `0${getTime.seconds}` : getTime.seconds;
   }
 

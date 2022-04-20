@@ -3,12 +3,23 @@ const modal = () => {
   const modal = document.querySelector('.popup');
   const btnClose = modal.querySelector('.popup-close');
   const modalContent = modal.querySelector('.popup-content');
-  const width = document.documentElement.clientWidth;
+  let width = document.documentElement.clientWidth;
 
   const closeModal = () => {
 
     if (width < 768) {
-      modal.style.display = 'none';
+      modal.style.cssText += `
+      display: none;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: all;
+      transition: none;
+      `;
+
+      modalContent.style.cssText += `
+      transition: none;
+      transform: translate(-50px, 0);
+      `;
     } else {
       modal.style.cssText += `
       display: block;
@@ -29,7 +40,19 @@ const modal = () => {
   const openModal = () => {
 
     if (width < 768) {
-      modal.style.display = 'block';
+      modal.style.cssText += `
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: all;
+      transition: none;
+      `;
+
+      modalContent.style.cssText += `
+      transition: none;
+      transform: translate(-50px, 0);
+      `;
+
     } else {
       modal.style.cssText += `
       display: block;
@@ -43,9 +66,7 @@ const modal = () => {
       transition: 0.5s ease;
       transform: translate(-50px, 0);
       `;
-
     }
-
   }
 
   closeModal();
@@ -60,6 +81,10 @@ const modal = () => {
     if (e.target == modal) {
       closeModal()
     }
+  })
+
+  window.addEventListener('resize', () => {
+    width = document.documentElement.clientWidth;
   })
 
 }
