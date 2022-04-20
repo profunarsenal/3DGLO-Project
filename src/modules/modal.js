@@ -10,16 +10,7 @@ const modal = () => {
     if (width < 768) {
       modal.style.display = 'none';
     } else {
-      modal.style.cssText = `
-      display: block;
-      position: fixed;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 9;
-      background-color: rgba(0, 0, 0, .5);
+      modal.style.cssText += `
       display: block;
       opacity: 0;
       visibility: hidden;
@@ -27,18 +18,9 @@ const modal = () => {
       transition: 0.5s ease;
       `;
 
-      modalContent.style.cssText = `
-      position: fixed;
-      text-align: center;
-      width: 40rem;
-      left: 38%;
-      top: 10%;
-      -webkit-transform: translateX(-50px);
-      transform: translateX(-50px);
-      padding: 2rem 6rem;
-      background-color: #24241f;
+      modalContent.style.cssText += `
       transition: 0.5s ease;
-      transform: scale(0);
+      transform: translate(-50px,-100%);
       `;
     }
 
@@ -49,16 +31,7 @@ const modal = () => {
     if (width < 768) {
       modal.style.display = 'block';
     } else {
-      modal.style.cssText = `
-      display: block;
-      position: fixed;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 9;
-      background-color: rgba(0, 0, 0, .5);
+      modal.style.cssText += `
       display: block;
       opacity: 1;
       visibility: visible;
@@ -66,19 +39,11 @@ const modal = () => {
       transition: 0.5s ease;
       `;
 
-      modalContent.style.cssText = `
-      position: fixed;
-      text-align: center;
-      width: 40rem;
-      left: 38%;
-      top: 10%;
-      -webkit-transform: translateX(-50px);
-      transform: translateX(-50px);
-      padding: 2rem 6rem;
-      background-color: #24241f;
+      modalContent.style.cssText += `
       transition: 0.5s ease;
-      transform: scale(1);
+      transform: translate(-50px, 0);
       `;
+
     }
 
   }
