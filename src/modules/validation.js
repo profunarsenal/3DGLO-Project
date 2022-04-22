@@ -73,10 +73,13 @@ const validation = () => {
       name.value = name.value.replace(/(^\s+|\s+$)|(^\-+|\-+$)/g, '');
       name.value = name.value.replace(/-{2,}/g, '-');
       name.value = name.value.replace(/\s{2,}/g, ' ');
-      name.value = name.value.split("")[0].toUpperCase() + name.value.slice(1);
+      name.value = name.value.replace(/[а-яa-z]+/gi, (str) => {
+        return str[0].toUpperCase() + str.slice(1);
+      })
     })
   })
 
 }
 
 export default validation
+
