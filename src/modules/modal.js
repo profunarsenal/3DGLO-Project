@@ -1,7 +1,6 @@
 const modal = () => {
   const buttons = document.querySelectorAll('.popup-btn');
   const modal = document.querySelector('.popup');
-  const btnClose = modal.querySelector('.popup-close');
   const modalContent = modal.querySelector('.popup-content');
   let width = document.documentElement.clientWidth;
 
@@ -75,11 +74,10 @@ const modal = () => {
     btn.addEventListener('click', openModal);
   })
 
-  btnClose.addEventListener('click', closeModal)
 
-  window.addEventListener('click', (e) => {
-    if (e.target == modal) {
-      closeModal()
+  modal.addEventListener('click', (e) => {
+    if (!e.target.closest('.popup-content') || e.target.classList.contains('popup-close')) {
+      closeModal();
     }
   })
 
