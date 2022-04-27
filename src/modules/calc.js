@@ -6,24 +6,32 @@ const calc = (price = 100) => {
   const calcDay = calcBlock.querySelector('.calc-day');
   const total = calcBlock.querySelector('#total');
 
-  const time = 1000;
-  const step = 100;
+  const debounce = (fn, ms) => {
+    let timer;
 
-  const animateNumber = (num, elem) => {
-    if (num > 0) {
-      let count = 0;
-      let timeStep = Math.round(time / (num / step));
-
-      let interval = setInterval(() => {
-        count = count + step;
-
-        if (count == num) {
-          clearInterval(interval)
-        }
-
-        elem.textContent = count;
-      }, timeStep)
+    return function () {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn.apply(this, arguments)
+      }, ms)
     }
+  }
+
+  function animateNumber(num, elem) {
+    let time = num < 10000 ? 100 : 10;
+    let step = num < 10000 ? 100 : 1000;
+    let count = 0;
+    let timeStep = Math.round(time / (num / step));
+
+    let interval = setInterval(() => {
+      count += step;
+
+      if (count === num) {
+        clearInterval(interval)
+      }
+
+      elem.textContent = count;
+    }, timeStep)
   }
 
   const countCalc = () => {
@@ -50,9 +58,14 @@ const calc = (price = 100) => {
       totalValue = 0;
     }
 
-    animateNumber(totalValue, total)
-
+    if (totalValue > 0) {
+      animateNumber(totalValue, total)
+    } else {
+      total.textContent = 0;
+    }
   }
+
+  animateNumber = debounce(animateNumber, 300);
 
   calcBlock.addEventListener('input', (e) => {
     if (e.target === calcType || e.target === calcSquare ||
