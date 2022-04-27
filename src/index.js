@@ -5,11 +5,13 @@ import scroll from "./modules/scroll"
 import validation from "./modules/validation"
 import tabs from "./modules/tabs"
 import slider from "./modules/slider"
+import calc from "./modules/calc"
 
-timer('1 may 2022')
+timer('22 may 2022')
 menu()
 modal()
 scroll()
 validation()
 tabs()
 slider('.portfolio-content', '.portfolio-item')
+calc()
