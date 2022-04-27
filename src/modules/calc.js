@@ -6,6 +6,26 @@ const calc = (price = 100) => {
   const calcDay = calcBlock.querySelector('.calc-day');
   const total = calcBlock.querySelector('#total');
 
+  const time = 1000;
+  const step = 100;
+
+  const animateNumber = (num, elem) => {
+    if (num > 0) {
+      let count = 0;
+      let timeStep = Math.round(time / (num / step));
+
+      let interval = setInterval(() => {
+        count = count + step;
+
+        if (count == num) {
+          clearInterval(interval)
+        }
+
+        elem.textContent = count;
+      }, timeStep)
+    }
+  }
+
   const countCalc = () => {
     const calcTypeValue = +calcType.options[calcType.selectedIndex].value;
     const calcSquareValue = +calcSquare.value;
@@ -30,7 +50,7 @@ const calc = (price = 100) => {
       totalValue = 0;
     }
 
-    total.textContent = totalValue;
+    animateNumber(totalValue, total)
 
   }
 
