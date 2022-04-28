@@ -1,3 +1,5 @@
+import { animate } from "./helpers";
+
 const calc = (price = 100) => {
   const calcBlock = document.querySelector('.calc-block');
   const calcType = calcBlock.querySelector('.calc-type');
@@ -5,34 +7,6 @@ const calc = (price = 100) => {
   const calcCount = calcBlock.querySelector('.calc-count');
   const calcDay = calcBlock.querySelector('.calc-day');
   const total = calcBlock.querySelector('#total');
-
-  const debounce = (fn, ms) => {
-    let timer;
-
-    return function () {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        fn.apply(this, arguments)
-      }, ms)
-    }
-  }
-
-  function animateNumber(num, elem) {
-    let time = num < 10000 ? 100 : 10;
-    let step = num < 10000 ? 100 : 1000;
-    let count = 0;
-    let timeStep = Math.round(time / (num / step));
-
-    let interval = setInterval(() => {
-      count += step;
-
-      if (count === num) {
-        clearInterval(interval)
-      }
-
-      elem.textContent = count;
-    }, timeStep)
-  }
 
   const countCalc = () => {
     const calcTypeValue = +calcType.options[calcType.selectedIndex].value;
@@ -58,14 +32,17 @@ const calc = (price = 100) => {
       totalValue = 0;
     }
 
-    if (totalValue > 0) {
-      animateNumber(totalValue, total)
-    } else {
-      total.textContent = 0;
-    }
-  }
+    animate({
+      duration: 300,
+      timing(timeFraction) {
+        return timeFraction;
+      },
+      draw(progress) {
+        total.textContent = Math.round(progress * totalValue);
+      }
+    });
 
-  animateNumber = debounce(animateNumber, 300);
+  }
 
   calcBlock.addEventListener('input', (e) => {
     if (e.target === calcType || e.target === calcSquare ||

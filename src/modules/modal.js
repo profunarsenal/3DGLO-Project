@@ -1,3 +1,5 @@
+import { animate } from "./helpers";
+
 const modal = () => {
   const buttons = document.querySelectorAll('.popup-btn');
   const modal = document.querySelector('.popup');
@@ -14,26 +16,29 @@ const modal = () => {
       pointer-events: all;
       transition: none;
       `;
-
       modalContent.style.cssText += `
       transition: none;
-      transform: translate(-50px, 0);
+      transform: translate(-50px, -100%);
       `;
     } else {
-      modal.style.cssText += `
-      display: block;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: 0.5s ease;
-      `;
-
-      modalContent.style.cssText += `
-      transition: 0.5s ease;
-      transform: translate(-50px,-100%);
-      `;
+      animate({
+        duration: 300,
+        timing(timeFraction) {
+          return timeFraction;
+        },
+        draw(progress) {
+          modal.style.cssText += `
+          display: block;
+          opacity: 0;
+          visibility: hidden;
+          pointer-events: none;
+          transition: 0.3s;
+          `;
+          modalContent.style.cssText += `
+          transform: translate(-50px,${-progress * 100}%);`;
+        }
+      });
     }
-
   }
 
   const openModal = () => {
@@ -46,29 +51,32 @@ const modal = () => {
       pointer-events: all;
       transition: none;
       `;
-
       modalContent.style.cssText += `
       transition: none;
       transform: translate(-50px, 0);
       `;
 
     } else {
-      modal.style.cssText += `
-      display: block;
-      opacity: 1;
-      visibility: visible;
-      pointer-events: all;
-      transition: 0.5s ease;
-      `;
-
-      modalContent.style.cssText += `
-      transition: 0.5s ease;
-      transform: translate(-50px, 0);
-      `;
+      animate({
+        duration: 300,
+        timing(timeFraction) {
+          return timeFraction;
+        },
+        draw(progress) {
+          modal.style.cssText += `
+          display: block;
+          opacity: ${progress};
+          visibility: visible;
+          pointer-events: all;
+          `;
+          modalContent.style.cssText += `
+          transform: translate(-50px, 0%);
+          transition: transform 0.3s`;
+        }
+      });
     }
-  }
 
-  closeModal();
+  }
 
   buttons.forEach(btn => {
     btn.addEventListener('click', openModal);
