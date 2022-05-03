@@ -1,9 +1,8 @@
+import { preloader } from "./helpers";
+
 const sendForm = (formId) => {
   const form = document.getElementById(formId);
   const statusBlock = document.createElement('div');
-  const loadText = 'Загрузка...';
-  const errorText = 'Ошибка';
-  const successText = 'Спасибо! Наш менеджер с вами свяжется!';
 
   const validate = (form) => {
     const formName = form.querySelector('.form-name');
@@ -54,7 +53,7 @@ const sendForm = (formId) => {
     const formData = new FormData(form);
     const formBody = {};
 
-    statusBlock.textContent = loadText;
+    preloader(statusBlock)
     form.append(statusBlock);
 
     formData.forEach((val, key) => {
@@ -68,13 +67,13 @@ const sendForm = (formId) => {
             input.value = '';
           })
 
-          statusBlock.textContent = successText;
+          preloader(statusBlock, 'Спасибо, наш менеджер с вами свяжется!');
         })
         .catch(error => {
-          statusBlock.textContent = errorText;
+          preloader(statusBlock, 'Ошибка...');
         })
     } else {
-      statusBlock.textContent = `${errorText}: Данные не валидны`;
+      preloader(statusBlock, 'Ошибка: Данные не валидны');
     }
   }
 
