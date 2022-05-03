@@ -7,6 +7,7 @@ import tabs from "./modules/tabs"
 import slider from "./modules/slider"
 import calc from "./modules/calc"
 import sendForm from "./modules/sendForm"
+import { swiper } from "./modules/swiper"
 
 timer('22 may 2022')
 menu()
@@ -18,4 +19,5 @@ slider('.portfolio-content', '.portfolio-item')
 calc()
 sendForm('form1')
 sendForm('form2')
-sendForm('form3') 
+sendForm('form3')
+swiper()

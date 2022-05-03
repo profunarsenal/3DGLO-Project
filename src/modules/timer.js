@@ -33,6 +33,8 @@ const timer = (deadline) => {
     timerSeconds.textContent = '00';
   }
 
+  updateClock();
+
   timer = setInterval(() => {
     let getTime = getRemaining();
 
