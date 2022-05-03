@@ -1,46 +1,8 @@
 const validation = () => {
   const calcInputs = document.querySelectorAll('.calc-item');
-  const mainForm = document.querySelector('#form1');
-  const footerForm = document.querySelector('#form2');
-  const modalForm = document.querySelector('#form3');
   const formEmails = document.querySelectorAll('.form-email');
   const formPhone = document.querySelectorAll('.form-phone');
   const formName = document.querySelectorAll('.form-name');
-
-  const checkForm = (e) => {
-    e.preventDefault();
-
-    const email = e.target.querySelector('.form-email');
-    const phone = e.target.querySelector('.form-phone');
-    const message = e.target.querySelector('#form2-message');
-
-    let isError = false;
-
-    if (message) {
-      if (!/[^а-яА-Я]/g.test(message.value)) {
-      } else {
-        isError = true
-      }
-    }
-
-    if (!/[^\w\@\.\~\-\!\'\*]/g.test(email.value)) {
-    } else {
-      isError = true
-    }
-
-    if (!/[^\d\(\)\-]/g.test(phone.value)) {
-    } else {
-      isError = true
-    }
-
-    if (!isError) {
-      console.log('Данные отправлены')
-    }
-  }
-
-  mainForm.addEventListener('submit', checkForm);
-  footerForm.addEventListener('submit', checkForm);
-  modalForm.addEventListener('submit', checkForm);
 
   calcInputs.forEach((item, index) => {
     if (index > 0) {
