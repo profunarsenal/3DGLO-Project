@@ -3,6 +3,7 @@ import { preloader } from "./helpers";
 const sendForm = (formId) => {
   const form = document.getElementById(formId);
   const statusBlock = document.createElement('div');
+  const modal = document.querySelector('.popup');
 
   const validate = (form) => {
     const formName = form.querySelector('.form-name');
@@ -14,23 +15,31 @@ const sendForm = (formId) => {
 
     if (message) {
       if (!/[^а-я\s\d\.\,\:\;\!\?]/gi.test(message.value)) {
+        message.style.cssText += `box-shadow: none;`;
       } else {
+        message.style.cssText += `box-shadow: 0px 0px 12px 2px rgba(255, 0, 0, 1);`;
         isError = false
       }
     }
 
     if (!/[^а-я\s]/gi.test(formName.value)) {
+      formName.style.cssText += `box-shadow: none;`;
     } else {
+      formName.style.cssText += `box-shadow: 0px 0px 12px 2px rgba(255, 0, 0, 1);`;
       isError = false
     }
 
-    if (!/[^\w\@\.\~\-\!\'\*]/g.test(email.value)) {
+    if (/[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/gi.test(email.value)) {
+      email.style.cssText += `box-shadow: none;`;
     } else {
+      email.style.cssText += `box-shadow: 0px 0px 12px 2px rgba(255, 0, 0, 1);`;
       isError = false
     }
 
     if (!/[^\d\(\)\+\-]/g.test(phone.value)) {
+      phone.style.cssText += `box-shadow: none;`;
     } else {
+      phone.style.cssText += `box-shadow: 0px 0px 12px 2px rgba(255, 0, 0, 1);`;
       isError = false
     }
 
@@ -68,12 +77,23 @@ const sendForm = (formId) => {
           })
 
           preloader(statusBlock, 'Спасибо, наш менеджер с вами свяжется!');
+
+          if (modal.style.display === 'block') {
+            setTimeout(() => {
+              modal.style.display = 'none';
+            }, 1000)
+
+          }
+
+          setTimeout(() => {
+            statusBlock.remove()
+          }, 5000)
         })
         .catch(error => {
           preloader(statusBlock, 'Ошибка...');
         })
     } else {
-      preloader(statusBlock, 'Ошибка: Данные не валидны');
+      preloader(statusBlock, 'Неправильно заполнены поля');
     }
   }
 
