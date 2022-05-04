@@ -29,14 +29,14 @@ const sendForm = (formId) => {
       isError = false
     }
 
-    if (/[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/gi.test(email.value)) {
+    if (/^[\w]{1}[\w-\.]*@[\w-]+\.[a-z]{2,4}$/i.test(email.value)) {
       email.style.cssText += `box-shadow: none;`;
     } else {
       email.style.cssText += `box-shadow: 0px 0px 12px 2px rgba(255, 0, 0, 1);`;
       isError = false
     }
 
-    if (!/[^\d\(\)\+\-]/g.test(phone.value)) {
+    if (/^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/g.test(phone.value)) {
       phone.style.cssText += `box-shadow: none;`;
     } else {
       phone.style.cssText += `box-shadow: 0px 0px 12px 2px rgba(255, 0, 0, 1);`;

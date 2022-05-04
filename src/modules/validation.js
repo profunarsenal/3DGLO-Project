@@ -31,6 +31,9 @@ const validation = () => {
   })
 
   formName.forEach(name => {
+    name.addEventListener('input', (e) => {
+      e.target.value = e.target.value.replace(/\d/, "")
+    })
     name.addEventListener('blur', () => {
       name.value = name.value.replace(/(^\s+|\s+$)|(^\-+|\-+$)/g, '');
       name.value = name.value.replace(/-{2,}/g, '-');
